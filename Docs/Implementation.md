@@ -1,4 +1,4 @@
-# Implementation Plan for LEAP Forward
+# Implementation Plan for Curriculum Compass (v1.0)
 
 ## Feature Analysis
 ### Identified Features:
@@ -13,6 +13,8 @@
 - Export of AI-generated content (.docx, .pdf)
 - Subscription management and payments via Polar
 - Quality assurance for AI outputs (feedback/flagging)
+
+---
 
 ### Feature Categorization:
 - **Must-Have Features:**
@@ -32,6 +34,8 @@
   - Pre-populated sample data
   - Advanced analytics visualizations
 
+---
+
 ## Recommended Tech Stack
 ### Frontend:
 - **Framework:** React (with Vite) - Fast, modern, and supports modular SPA development.
@@ -50,63 +54,89 @@
 
 ### Authentication:
 - **Library:** better-auth for Convex (secure, modern, supports role-based access)
-- **Documentation:** [better-auth Convex Docs](https://www.npmjs.com/package/@better-auth-kit/convex)
+- **Documentation:** [better-auth Convex Docs](https://github.com/get-convex/better-auth/tree/main/examples/react)
 
 ### AI Logic:
 - **RAG/Agent:** @convex-dev/agent, @convex-dev/rag (retrieval-augmented generation, coach persona)
-- **Documentation:** [@convex-dev/agent](https://www.npmjs.com/package/@convex-dev/agent) | [@convex-dev/rag](https://www.npmjs.com/package/@convex-dev/rag)
+- **Documentation:** [@convex-dev/agent](https://github.com/get-convex/agent/tree/main/example) | [@convex-dev/rag](https://github.com/get-convex/rag/tree/main/example)
 
 ### Payments:
 - **Provider:** Polar (B2B SaaS, subscription management, customer portal)
-- **Documentation:** [Polar Docs](https://docs.polar.sh/introduction)
+- **Documentation:** [Polar Docs](https://docs.polar.sh/introduction) [@convex-dev/polar](https://github.com/get-convex/polar)
+
+---
 
 ## Implementation Stages
 
 ### Stage 1: Foundation & Setup
-**Duration:** 2 weeks
+
+**Duration:** 1 Week
 **Dependencies:** None
 
 #### Sub-steps:
-- [ ] Set up development environment (Node.js, pnpm, Vite, Convex CLI)
-- [ ] Initialize project structure (frontend, backend, /Docs)
-- [ ] Configure build tools and CI/CD (GitHub Actions, linting, formatting)
-- [ ] Set up Convex database and define initial schema
-- [ ] Integrate better-auth for authentication and role management
 
-### Stage 2: Core Features
-**Duration:** 4 weeks
+-   [ ] Initialize project with Vite (React), Convex, and Tailwind CSS, establishing the top-level `/app` and `/src` directories.
+-   [ ] Configure `better-auth` and create the core auth functions in `/app/convex/auth.ts`.
+-   [ ] Build the authentication UI components in `/src/components/features/auth/`: `LoginForm`, `SignupForm`, `PasswordReset`.
+-   [ ] Create the core authentication pages in `/src/pages/auth/`: `Login`, `Signup`, `ForgotPassword`.
+-   [ ] Implement the base schemas in `/app/convex/schema.ts`: `users`, `organizations` (districts), and `subscriptions`.
+-   [ ] Build the main application layout components (`AppLayout`, `Header`). Plan for primary navigation to be a sidebar on desktop and a responsive sheet menu (`shadcn/ui Sheet`) on mobile.
+-   [ ] Set up routing in `src/App.tsx` for auth pages and the main protected dashboard layout.
+
+---
+
+### Stage 2: Core Features (Teacher Workflow)
+
+**Duration:** 2-3 Weeks
 **Dependencies:** Stage 1 completion
 
 #### Sub-steps:
-- [ ] Implement secure authentication flows (sign-up, sign-in, password reset)
-- [ ] Implement multi-tenancy and district data isolation
-- [ ] Build document upload, listing, and deletion (with status tracking)
-- [ ] Develop real-time AI chat interface (context selection, chat history)
-- [ ] Enable actionable content generation (lesson plans, assessments)
-- [ ] Set up role-based access control for all features
-- [ ] Integrate Polar for subscription management and gating
 
-### Stage 3: Advanced Features
-**Duration:** 3 weeks
+-   [ ] Configure and set up the `@convex-dev/rag` component in `/app/convex/rag.ts`.
+-   [ ] Implement the `rag.addAsync` workflow for file uploads, triggered by a Convex action defined in `/app/convex/documents.ts`.
+-   [ ] Configure and set up the `@convex-dev/agent` component in `/app/convex/agent.ts`.
+-   [ ] Build the document management UI components in `/src/components/features/documents/`: `DocumentUpload`, `DocumentList`, `DocumentCard`.
+-   [ ] Create the "My Documents" page at `/src/pages/documents/DocumentsPage.tsx`.
+-   [ ] Build the chat UI components in `/src/components/features/chat/`: `ChatInterface`, `MessageBubble`, `ChatInput`.
+-   [ ] Implement the core chat flow by connecting the UI to an action in `/app/convex/chat.ts` that uses `agent.createThread` and `thread.generateText`.
+-   [ ] Wire the `thread.generateText` function to use the `rag.search` function for context retrieval.
+-   [ ] Build the "Teacher First-Time Setup" onboarding flow as specified in the `userFlows` JSON.
+
+---
+
+### Stage 3: Advanced Features & Monetization
+
+**Duration:** 2-3 Weeks
 **Dependencies:** Stage 2 completion
 
 #### Sub-steps:
-- [ ] Build Coach's knowledge base interface and integration
-- [ ] Implement analytics dashboard (aggregated, anonymized data)
-- [ ] Add export functionality for AI-generated content (.docx, .pdf)
-- [ ] Implement quality assurance/feedback for AI outputs
-- [ ] Enhance onboarding with tutorials and sample data
+
+-   [ ] Seed the RAG database with LER & NIET standards via a script that calls functions in `/app/convex/rag.ts`.
+-   [ ] Build the UI for the "Coach Knowledge Base Management" workflow.
+-   [ ] Implement the backend subscription logic in `/app/convex/subscriptions.ts` using Polar, including the webhook handler in `/app/convex/http.ts`.
+-   [ ] Build the "District Administration" UI for the Admin role, including `UserManagement` and `BillingPortal` components.
+-   [ ] Implement the `featureFlags` logic.
+-   [ ] Enhance the Agent's capabilities by creating tools with `agent.createTool` in `/app/convex/agent.ts`.
+-   [ ] Implement the content export functionality.
+
+---
 
 ### Stage 4: Polish & Optimization
-**Duration:** 2 weeks
+
+**Duration:** 1-2 Weeks
 **Dependencies:** Stage 3 completion
 
 #### Sub-steps:
-- [ ] Conduct comprehensive testing (unit, integration, E2E)
-- [ ] Optimize performance (AI response time, document processing)
-- [ ] Enhance UI/UX (accessibility, responsive design, polish)
-- [ ] Implement robust error handling and logging
-- [ ] Prepare for deployment (docs, production build, monitoring)
+
+-   [ ] Implement the backend analytics logic in `/app/convex/analytics.ts`.
+-   [ ] Build the analytics UI components in `/src/components/features/analytics/`.
+-   [ ] Create the `AnalyticsPage` and ensure it displays different data based on Coach vs. Admin roles.
+-   [ ] Conduct comprehensive testing based on the defined `userFlows`.
+-   [ ] Optimize performance of Convex queries and React component rendering.
+-   [ ] Perform a final security and compliance review.
+-   [ ] Prepare for the "Founder's Program" pilot deployment.
+
+---
 
 ## Resource Links
 - [Vite + React Documentation](https://vitejs.dev/guide/)

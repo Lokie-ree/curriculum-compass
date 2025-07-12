@@ -1,99 +1,95 @@
-# UI/UX Documentation for LEAP Forward
+# UI/UX Documentation for Curriculum Compass (v1.0)
 
-## Design System Specifications
-- **Design Language:** Clean, modern, accessible, and supportive (coach persona)
-- **Color Palette:** Accessible, high-contrast, school-friendly (blues, greens, neutrals)
-- **Typography:** Sans-serif, clear hierarchy, large readable sizes
-- **Spacing:** Generous padding/margins for clarity and touch targets
-- **Iconography:** Simple, meaningful, consistent (education/coaching motifs)
-- **Theme:** Light and dark mode support (Tailwind + shadcn/ui)
+This document outlines the user interface (UI) components, user experience (UX) flows, and design system specifications for the Curriculum Compass application. It serves as the primary guide for all frontend development to ensure a consistent, intuitive, and accessible user experience.
 
-## UI Component Guidelines
-- **Buttons:** Use shadcn/ui Button as base; primary, secondary, destructive, and ghost variants
-- **Inputs:** Large, accessible, clear labels; error and help text
-- **Cards:** For document previews, analytics, and onboarding steps
-- **Dialogs/Modals:** For confirmations, document actions, onboarding
-- **Navigation:** Sidebar for main sections (Chat, Documents, Analytics, Knowledge Base, Admin)
-- **Tabs:** For switching between document views, analytics, or settings
-- **Alerts/Toasts:** For feedback, errors, and confirmations
-- **Avatars/Badges:** For user roles and quick identification
+## 1. Design System & Style Guide
 
-## User Experience Flow Diagrams
-- **Onboarding:**
-  1. First login → Guided tutorial modal (core features)
-  2. Sample documents and chat sessions pre-loaded
-  3. Progress bar for onboarding completion
-- **Document Upload:**
-  1. Click "Upload Document" → File picker (.pdf, .docx)
-  2. Show upload progress/status (Processing, Ready)
-  3. List of user documents with actions (select, delete, export)
-- **AI Chat:**
-  1. Select document context → Enter chat
-  2. Real-time chat interface (input, send, streaming AI response)
-  3. Action buttons for content generation (lesson plan, assessment)
-  4. Save and view chat history
-- **Coach's Knowledge Base:**
-  1. Coach role → Access "Coach's Notes" interface
-  2. Add/edit notes, tag with standards/indicators
-  3. Notes prioritized in AI responses
-- **Analytics Dashboard:**
-  1. Coach/Admin role → Access dashboard
-  2. View aggregated, anonymized data visualizations
-  3. No PII or individual chat content
+The design philosophy is clean, professional, and supportive, prioritizing clarity and ease of use to minimize cognitive load on busy educators.
 
-## Responsive Design Requirements
-- **Mobile-first:** All features accessible on tablets and phones
-- **Breakpoints:** Standard Tailwind breakpoints (sm, md, lg, xl)
-- **Touch Targets:** Minimum 44x44px for all interactive elements
-- **Navigation:** Collapsible sidebar on mobile, persistent on desktop
-- **Tables/Lists:** Horizontal scroll on small screens
+*   **Component Library:** `shadcn/ui` provides the foundational, accessible components (Buttons, Cards, Inputs, etc.). All custom components will be built on this foundation.
+*   **Styling:** Tailwind CSS will be used for all styling, ensuring consistency and maintainability.
+*   **Color Palette:** A professional and calm palette will be used, featuring a primary accent color for calls-to-action, neutral tones for backgrounds and text, and semantic colors for success, warning, and error states.
+*   **Typography:** A single, highly-readable sans-serif font (e.g., Inter) will be used throughout the application. A clear typographic scale (e.g., h1, h2, p, small) will establish visual hierarchy.
+*   **Iconography:** A consistent icon set from `lucide-react` will be used to provide clear visual cues for navigation and actions, as it integrates seamlessly with `shadcn/ui`.
 
-## Accessibility Standards
-- **WCAG 2.1 AA compliance**
-- **Keyboard navigation:** All interactive elements focusable and operable
-- **Screen reader support:** Proper ARIA labels, roles, and live regions
-- **Color contrast:** Minimum 4.5:1 for text/background
-- **Alt text:** All images and icons
+## 2. Navigation Structure
 
-## Style Guide and Branding
-- **Logo:** School-friendly, simple, and memorable
-- **Brand Voice:** Supportive, expert, approachable (coach persona)
-- **Button/Link Styles:** Consistent hover/focus/active states
-- **Form Elements:** Consistent spacing, error handling, and help text
-- **Loading States:** Skeletons or spinners for async actions
+Navigation is role-based and responsive. On desktop, a persistent sidebar will be used. On mobile devices, the sidebar will be replaced by a `Sheet` component (slide-out menu) for a better user experience.
 
-## Component Library Organization
-- **/src/components/ui/**: shadcn/ui base components (Button, Input, Dialog, etc.)
-- **/src/components/**: Custom and composed components (DocumentCard, ChatMessage, AnalyticsChart)
-- **/src/pages/**: Page-level layouts (Dashboard, Chat, Analytics, Onboarding)
-- **/src/styles/**: Tailwind base, theme overrides, and custom CSS
+### 2.1. Teacher Navigation
 
-## User Journey Maps
-- **Teacher:**
-  - Login → Onboarding → Upload curriculum → Start chat → Generate lesson plan → Export → Review analytics
-- **Coach:**
-  - Login → Access knowledge base → Add notes → Review analytics → Support teachers via chat
-- **Admin:**
-  - Login → Manage users/subscriptions → View analytics → Export reports
+*   **Primary Navigation:**
+    *   **Dashboard:** (`/dashboard`) - `Home` icon.
+    *   **My Documents:** (`/documents`) - `FileText` icon.
+    *   **AI Assistant:** (`/chat`) - `MessageCircle` icon.
+*   **Secondary Navigation (User Menu/Header):**
+    *   **Profile:** (`/profile`) - `User` icon.
+    *   **Help & Support:** (`/help`) - `HelpCircle` icon.
 
-## Wireframe References
-- **Onboarding Modal:** Stepper with progress, feature highlights
-- **Document List:** Card/grid view, status badges, action menu
-- **Chat Interface:** Message list, input bar, action buttons, context selector
-- **Analytics Dashboard:** Card-based metrics, bar/pie charts, filter controls
-- **Knowledge Base:** List of notes, add/edit modal, tag filters
+### 2.2. Coach Navigation
 
-## Design Tool Integration
-- **Figma:** All wireframes and design system tokens managed in Figma (link to be added)
-- **Handoff:** Use Figma Inspect for spacing, color, and component specs
+*   **Primary Navigation:**
+    *   **Dashboard:** (`/dashboard`) - `Home` icon.
+    *   **Knowledge Base:** (`/knowledge-base`) - `BookOpen` icon.
+    *   **Teacher Analytics:** (`/analytics`) - `BarChart` icon.
 
-## Resource Links
-- [@convex-dev/agent Usage Guide (internal)](../convex-components/AGENT.md)
-- [@convex-dev/rag Usage Guide (internal)](../convex-components/RAG.md)
-- [@better-auth-kit/convex Usage Guide (internal)](../convex-components/BETTER_AUTH.md)
-- [@convex-dev/polar Usage Guide (internal)](../convex-components/POLAR.md)
-- [@convex-dev/resend Usage Guide (internal)](../convex-components/RESEND.md)
-> Note: These are internal documentation files for backend/integration reference, not UI/UX docs.
+### 2.3. Admin Navigation
+
+*   **Primary Navigation:**
+    *   **Dashboard:** (`/dashboard`) - `Home` icon.
+    *   **User Management:** (`/users`) - `Users` icon.
+    *   **Billing:** (`/billing`) - `CreditCard` icon.
+    *   **District Analytics:** (`/analytics`) - `TrendingUp` icon.
+
+## 3. User Experience Flows
+
+The following user flows, derived from our project specifications, detail the step-by-step journey for key tasks.
+
+### 3.1. Teacher First-Time Onboarding (`teacher_onboarding`)
+
+*   **Objective:** To welcome new teachers, gather essential profile information, and quickly guide them to the app's core value.
+*   **Flow:**
+    1.  **Welcome Screen:** User is greeted with a modal (`WelcomeModal`) explaining the app's value.
+    2.  **Profile Setup:** User is prompted to complete their profile (`ProfileForm`).
+    3.  **First Document Upload:** User is encouraged (optionally) to upload their first curriculum document using the `DocumentUpload` component.
+    4.  **Feature Tour:** An interactive tour highlights the key UI elements.
+
+### 3.2. Document Upload and Processing (`document_workflow`)
+
+*   **Objective:** To provide a clear and seamless process for uploading documents and preparing them for AI interaction.
+*   **Flow:**
+    1.  **File Selection:** User selects a `.pdf` or `.docx` file via the `DocumentUploader` component.
+    2.  **Upload Progress:** A `ProgressBar` provides visual feedback.
+    3.  **AI Processing:** A `ProcessingSpinner` indicates that the backend is parsing, vectorizing, and indexing the document via the RAG component workflow.
+    4.  **Ready Notification:** A `SuccessMessage` confirms the document is ready, with calls-to-action to "Start Chat" or "Upload Another."
+
+### 3.3. AI Chat Session (`chat_interaction`)
+
+*   **Objective:** To provide a powerful yet intuitive interface for teachers to get AI-powered support.
+*   **Flow:**
+    1.  **Context Selection:** User selects a document from the `DocumentList` to serve as context.
+    2.  **Conversation:** The `ChatInterface` displays message history and provides a `ChatInput`. A typing indicator shows when the AI is generating a response.
+    3.  **Quick Actions:** `ActionButtons` will be present, allowing the user to trigger complex prompts like "Generate Lesson Plan" or "Check Standards Alignment."
+
+### 3.4. Coach Knowledge Base Management (`coach_workflow`)
+
+*   **Objective:** To allow expert coaches to easily contribute their knowledge to the system.
+*   **Flow:**
+    1.  **Access:** Coach navigates to the "Knowledge Base" section.
+    2.  **Add Note:** The coach uses a `NoteEditor` to add a new "Coach's Note," which will be given the highest priority in the RAG knowledge base.
+    3.  **Review Analytics:** The coach can navigate to the `AnalyticsDashboard` to review trends.
+
+### 3.5. District Administration (`admin_workflow`)
+
+*   **Objective:** To provide a centralized hub for admins to manage their district's account.
+*   **Flow:**
+    1.  **User Management:** Admin uses the `UserManagement` interface to invite and manage users.
+    2.  **Subscription Management:** Admin navigates to the `BillingPortal` to manage their subscription through the integrated Polar interface.
+    3.  **District Overview:** Admin views high-level adoption and usage metrics on the `DistrictAnalytics` dashboard.
+
+## 4. Accessibility & Responsive Design
+
+*   **Accessibility:** The application must adhere to WCAG 2.1 AA standards. This includes providing sufficient color contrast, keyboard navigability, screen reader support (ARIA labels), and focus management.
+*   **Responsive Design:** All interfaces must be fully responsive. The primary navigation will transition from a fixed sidebar on desktop to a slide-out `Sheet` menu on mobile breakpoints to ensure optimal usability on all devices.
 
 ---
-For detailed component specs and updates, see the Figma file (to be linked here). 
