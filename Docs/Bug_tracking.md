@@ -40,9 +40,11 @@ This file is used to document all bugs, errors, and issues encountered during de
 
 ## Bug Log
 
-| Date       | Description                | Status   | Reported By | Resolution/Notes         |
-|------------|----------------------------|----------|-------------|--------------------------|
-|            |                            |          |             |                          |
+| Date       | Description                                              | Status   | Reported By | Resolution/Notes         |
+|------------|----------------------------------------------------------|----------|-------------|--------------------------|
+| 2025-07-12 | ConvexHandler betterAuth property type error             | Resolved | user        | Moved handler to convex/betterAuth.ts as per docs |
+| 2025-07-12 | ConvexHttpClient error: undefined deployment address     | Resolved | user        | Removed convex/auth.ts, only use handler in backend |
+| 2025-07-12 | Nothing rendering at /dashboard due to nested routing    | Resolved | user        | Refactored AppLayout to use Outlet and nested routes |
 
 ---
 

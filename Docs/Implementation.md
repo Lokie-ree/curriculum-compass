@@ -75,13 +75,15 @@
 
 #### Sub-steps:
 
--   [ ] Initialize project with Vite (React), Convex, and Tailwind CSS, establishing the top-level `/app` and `/src` directories.
--   [ ] Configure `better-auth` and create the core auth functions in `/app/convex/auth.ts`.
--   [ ] Build the authentication UI components in `/src/components/features/auth/`: `LoginForm`, `SignupForm`, `PasswordReset`.
--   [ ] Create the core authentication pages in `/src/pages/auth/`: `Login`, `Signup`, `ForgotPassword`.
--   [ ] Implement the base schemas in `/app/convex/schema.ts`: `users`, `organizations` (districts), and `subscriptions`.
--   [ ] Build the main application layout components (`AppLayout`, `Header`). Plan for primary navigation to be a sidebar on desktop and a responsive sheet menu (`shadcn/ui Sheet`) on mobile.
--   [ ] Set up routing in `src/App.tsx` for auth pages and the main protected dashboard layout.
+-   [x] Initialize project with Vite (React), Convex, and Tailwind CSS, establishing the top-level `/app` and `/src` directories.
+-   [x] Configure `better-auth` and create the core auth functions in `/app/convex/auth.ts`.
+-   [x] Build the authentication UI components in `/src/components/features/auth/`: `LoginForm`, `SignupForm`, `PasswordReset`.
+-   [x] Create the core authentication pages in `/src/pages/auth/`: `Login`, `Signup`, `ForgotPassword`.
+-   [x] Implement the base schemas in `/app/convex/schema.ts`: `users`, `organizations` (districts), and `subscriptions`.
+-   [x] Build the main application layout components (`AppLayout`, `Header`). Plan for primary navigation to be a sidebar on desktop and a responsive sheet menu (`shadcn/ui Sheet`) on mobile.
+-   [x] Set up routing in `src/App.tsx` for auth pages and the main protected dashboard layout.
+
+> **Stage 1 completed 2025-07-12. See Bug_tracking.md for resolved issues.**
 
 ---
 
